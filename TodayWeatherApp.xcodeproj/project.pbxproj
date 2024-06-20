@@ -23,6 +23,9 @@
 		B8089F062C22EC3100F45F74 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8089F052C22EC3100F45F74 /* Weather.swift */; };
 		B8089F0A2C22FBE000F45F74 /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8089F092C22FBE000F45F74 /* WeatherTableViewCell.swift */; };
 		B8089F0C2C23149600F45F74 /* WeatherImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8089F0B2C23149600F45F74 /* WeatherImageTableViewCell.swift */; };
+		B872CFAA2C240E9B0068EAF2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B872CFA92C240E9B0068EAF2 /* APIService.swift */; };
+		B8B5C8652C2413B90093C69E /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = B8B5C8642C2413B90093C69E /* loading.json */; };
+		B8B5C8682C2413D00093C69E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B8B5C8672C2413D00093C69E /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,8 @@
 		B8089F052C22EC3100F45F74 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		B8089F092C22FBE000F45F74 /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		B8089F0B2C23149600F45F74 /* WeatherImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherImageTableViewCell.swift; sourceTree = "<group>"; };
+		B872CFA92C240E9B0068EAF2 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		B8B5C8642C2413B90093C69E /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +56,7 @@
 				B8089EFD2C22CE0400F45F74 /* Kingfisher in Frameworks */,
 				B8089EF72C22CDE600F45F74 /* SnapKit in Frameworks */,
 				B8089EFA2C22CDF200F45F74 /* Alamofire in Frameworks */,
+				B8B5C8682C2413D00093C69E /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +83,7 @@
 		B8089EC72C22C64800F45F74 /* TodayWeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				B872CFA82C240E920068EAF2 /* Service */,
 				B8089EFE2C22CE9800F45F74 /* Model */,
 				B8089EF22C22CB1A00F45F74 /* Custom */,
 				B8089EDC2C22C78C00F45F74 /* Resource */,
@@ -96,6 +103,7 @@
 		B8089EDC2C22C78C00F45F74 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B8B5C8632C24139C0093C69E /* Lottie */,
 				B8089EE72C22CA8000F45F74 /* Font */,
 			);
 			path = Resource;
@@ -126,6 +134,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		B872CFA82C240E920068EAF2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B872CFA92C240E9B0068EAF2 /* APIService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		B8B5C8632C24139C0093C69E /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				B8B5C8642C2413B90093C69E /* loading.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,6 +170,7 @@
 				B8089EF62C22CDE600F45F74 /* SnapKit */,
 				B8089EF92C22CDF200F45F74 /* Alamofire */,
 				B8089EFC2C22CE0400F45F74 /* Kingfisher */,
+				B8B5C8672C2413D00093C69E /* Lottie */,
 			);
 			productName = TodayWeatherApp;
 			productReference = B8089EC52C22C64800F45F74 /* TodayWeatherApp.app */;
@@ -179,6 +204,7 @@
 				B8089EF52C22CDE600F45F74 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B8089EF82C22CDF200F45F74 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B8089EFB2C22CE0400F45F74 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B8B5C8662C2413D00093C69E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = B8089EC62C22C64800F45F74 /* Products */;
 			projectDirPath = "";
@@ -196,6 +222,7 @@
 			files = (
 				B8089F042C22D2B900F45F74 /* .gitignore in Resources */,
 				B8089EEE2C22CA8C00F45F74 /* 강원교육모두 Light.otf in Resources */,
+				B8B5C8652C2413B90093C69E /* loading.json in Resources */,
 				B8089ED22C22C64900F45F74 /* Assets.xcassets in Resources */,
 				B8089EED2C22CA8C00F45F74 /* 강원교육모두 Bold.otf in Resources */,
 				B8089ED52C22C64900F45F74 /* Base in Resources */,
@@ -216,6 +243,7 @@
 				B8089EC92C22C64800F45F74 /* AppDelegate.swift in Sources */,
 				B8089ECB2C22C64800F45F74 /* SceneDelegate.swift in Sources */,
 				B8089F062C22EC3100F45F74 /* Weather.swift in Sources */,
+				B872CFAA2C240E9B0068EAF2 /* APIService.swift in Sources */,
 				B8089F022C22D2A200F45F74 /* APIInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +493,14 @@
 				minimumVersion = 7.12.0;
 			};
 		};
+		B8B5C8662C2413D00093C69E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -482,6 +518,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B8089EFB2C22CE0400F45F74 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		B8B5C8672C2413D00093C69E /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8B5C8662C2413D00093C69E /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

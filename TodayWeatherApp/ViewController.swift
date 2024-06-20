@@ -8,12 +8,26 @@
 import UIKit
 import CoreLocation
 
-import Alamofire
+import Lottie
 import SnapKit
 
 class ViewController: UIViewController {
     
     //MARK: - object
+    let loadingBackView: UIView = {
+        let object = UIView()
+        object.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        object.isHidden = true
+        return object
+    }()
+    
+    let loadingAnimationView: LottieAnimationView = {
+        let object = LottieAnimationView(name: "loading")
+        object.loopMode = .loop
+        object.contentMode = .scaleAspectFit
+        return object
+    }()
+    
     let backgroundImage: UIImageView = {
         let object = UIImageView()
         object.contentMode = .scaleAspectFill
@@ -84,6 +98,18 @@ class ViewController: UIViewController {
         return dateFormat.string(from: Date.now)
     }
     
+    var isLoad: Bool = false {
+        didSet {
+            if isLoad {
+                loadingBackView.isHidden = false
+                loadingAnimationView.play()
+            } else {
+                loadingAnimationView.stop()
+                loadingBackView.isHidden = true
+            }
+        }
+    }
+    
     //MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +132,9 @@ class ViewController: UIViewController {
         view.addSubview(refreshButton)
         
         view.addSubview(tableView)
+        
+        view.addSubview(loadingBackView)
+        loadingBackView.addSubview(loadingAnimationView)
     }
     
     private func configureLayout(){
@@ -145,6 +174,16 @@ class ViewController: UIViewController {
             make.top.equalTo(refreshButton.snp.bottom).offset(20)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        loadingBackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        loadingAnimationView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(200)
+        }
+        
     }
     
     private func configureUI(){
@@ -179,30 +218,13 @@ class ViewController: UIViewController {
     }
     
     //MARK: - function
-    private func callAPI(_ location: CLLocationCoordinate2D){
-        let queryString = APIParameters(lon: location.longitude, lat: location.latitude).convertQueryString()
-        
-        guard let url = URL(string: APIInfo.url) else { return }
-        
-        AF.request(url, parameters: queryString).responseDecodable(of: CurrentWeather.self) { response in
-            switch response.result {
-            case .success(let data):
-                dump(data)
-                self.dateLabel.text = self.currentTime
-                self.currentWeather = data
-                self.tableView.reloadData()
-                self.tableView.isHidden = false
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
     private func checkDeviceLoationAuthorization(){
-        if CLLocationManager.locationServicesEnabled() {
-            checkCurrentLocationAuthorizationStatus()
-        } else {
-            print("위치 서비스가 꺼져 있어서, 위치 권한 요청을 할 수 없어요.")
+        DispatchQueue.global().async {
+            if CLLocationManager.locationServicesEnabled() {
+                self.checkCurrentLocationAuthorizationStatus()
+            } else {
+                print("위치 서비스가 꺼져 있어서, 위치 권한 요청을 할 수 없어요.")
+            }
         }
     }
     
@@ -305,7 +327,10 @@ extension ViewController: CLLocationManagerDelegate {
     
     func reverseGeocode(location: CLLocation){
         // 역지오코딩 시작
+        print("1")
+        isLoad = true
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            print("2")
             if let error = error {
                 print("Reverse geocoding failed: \(error.localizedDescription)")
             } else if let placemarks = placemarks, let placemark = placemarks.first {
@@ -313,12 +338,30 @@ extension ViewController: CLLocationManagerDelegate {
                 let city = placemark.locality ?? "Unknown City"
                 let district = placemark.subLocality ?? "Unknown District"
                 
+                print("3")
                 self.locateText = "\(city), \(district)"
             }
         }
         
-        self.callAPI(location.coordinate)
+        print("4")
+        APIService.shared.callAPI(location.coordinate){ networkResult in
+            print("5")
+            switch networkResult {
+            case .success(let data):
+                print("6")
+                self.dateLabel.text = self.currentTime
+                self.currentWeather = data
+                self.tableView.reloadData()
+                self.tableView.isHidden = false
+                print("7")
+            case .failure(let error):
+                print(error)
+            }
+            self.isLoad = false
+            print("8")
+        }
         
+        print("9")
         // 위치 업데이트 멈추기
         locationManager.stopUpdatingLocation()
     }
