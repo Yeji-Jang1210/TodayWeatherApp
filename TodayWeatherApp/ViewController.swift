@@ -297,7 +297,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 return imageCell
             }
         case 4:
-            cell.setText("오늘도 즐거운 하루 보내세요")
+            cell.setText("\(Message.energeticQuotes.randomElement()!)")
         default:
             break
         }
